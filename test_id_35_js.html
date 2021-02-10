@@ -1,0 +1,73 @@
+<html>
+<meta charset="utf-8" />
+<script type="text/javascript">
+	
+
+  // ----- 1 -----
+  // Q:
+  // Дан код, именно в таком виде, с такими отступами, вопрос - что он выведет
+  // A:
+  // 1
+  
+  var foo = [1, 2, function(a) { console.log(a) }, 3, 4],
+      bar = foo[2];
+  bar(1); //1
+  
+  // Выведет он единицу, давайте разбираться:
+  // 1. создаём массив, где третьим элементом запихиваем функцию function(a) { console.log(a) }, она пока не вызывается;
+  // 2. записываем этот элемент, с функцией, в новую переменную bar = foo[2];
+  // 3. наконец-то вызываем нашу функцию с параметром 1, она просто выводит 1.
+  
+  
+  // ----- 2 -----
+  // Q:
+  // Дан код, что он выведет
+  // A:
+  // true
+  
+  var foo = function(){ return true; }; 
+  window.bar = function(){ return true; }; 
+  console.log( foo() && bar() && baz());  //true
+  function baz(){ return true; }
+  
+  // Собственно, что у нас происходит:
+  // мы объвляем три функции, одну через var foo, другую через window - получается такая же глобальная переменная,
+  // третью c помощью стандартного function и такое объявление доступно во всём коде, независимо от места объявления,
+  // а раз все три функции возвращают true, то true && true && true == true
+  
+  
+  // ----- 3 -----
+  // Q:
+  // Укажите неверные утверждения об этих записях
+  
+  +function() {}();
+  !function() {}();
+  
+  // Варианты ответов:
+  // [ЛОЖЬ] Это знаки арифметических и логических действий над результатом выполнения
+  // [ЛОЖЬ] Эти записи вызовут ошибку в синтаксисе
+  // [ЛОЖЬ?] Указывает, что это функции-выражения
+  // [ИСТИНА] Указывает, что это объявление функции
+  // [ИСТИНА] Это равнозначение объявления
+  
+  
+  // ----- 4 -----
+  // Q:
+  // Укажите варианты, в которых результатом выполнения будет true
+  
+  function Foo(){};
+  var example1 = new Foo(),
+      example2 = new example1.constructor();
+      
+  // A:
+  console.log( typeof example1 == 'object' );   //true
+  console.log( example2 === example1 );         //false
+  console.log( typeof example2 == 'object' );   //true
+  console.log( example2 instanceof example1 );  //Uncaught TypeError: example1 is not a function
+  console.log( example2 instanceof Foo );       //true
+      
+ 
+  
+
+</script>
+</html>
